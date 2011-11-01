@@ -17,7 +17,7 @@ fi
 
 typeset -r PIDFILE="$PWD/pid"
 if [[ -f "$PIDFILE" ]]; then
-	read -r pid < "$PIDFILE"
+	typeset pid="$(<$PIDFILE)"
 	if [[ -n "$pid" ]]; then
 		kill -0 "$pid" 2>/dev/null && exit 0
 	fi
@@ -49,7 +49,7 @@ function ibutton2uid {
 
 zmodload zsh/net/tcp
 
-ztcp -l "$PORT"
+ztcp -l $PORT
 typeset -i listenfd=$REPLY
 
 while true; do
